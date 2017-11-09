@@ -1,0 +1,104 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v4.0", "System.DirectoryServices.Linq\System.DirectoryServices.Linq.v4.0.csproj", "{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v4.0.Tests", "System.DirectoryServices.Linq.Tests\System.DirectoryServices.Linq.v4.0.Tests.csproj", "{90BCFBDD-C07D-4310-A9EA-86B920E9C35F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B320E5A7-C7AF-4C30-BDD6-240CD0506807}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		System.DirectoryServices.Linq.vsmdi = System.DirectoryServices.Linq.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.0", "v4.0", "{A103B85C-9F3D-4D4E-B9E1-6ED66FEF9F56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v3.5", "v3.5", "{C52693F0-BE4A-4269-A6F9-854815F4FBF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v3.5", "System.DirectoryServices.Linq\System.DirectoryServices.Linq.v3.5.csproj", "{C07DA492-0382-4014-BF6C-F4596BD4C1C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v3.5.Tests", "System.DirectoryServices.Linq.Tests\System.DirectoryServices.Linq.v3.5.Tests.csproj", "{20E632EE-4619-4A52-BCFD-94773BB97A96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.5", "v4.5", "{F8A0BB7D-18C8-4DB8-8EDD-0F4E21DB2475}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v4.5", "System.DirectoryServices.Linq\System.DirectoryServices.Linq.v4.5.csproj", "{2E4C862B-1496-492B-8361-33064476BE30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.DirectoryServices.Linq.v4.5.Tests", "System.DirectoryServices.Linq.Tests\System.DirectoryServices.Linq.v4.5.Tests.csproj", "{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = System.DirectoryServices.Linq\\System.DirectoryServices.Linq.v3.5.csproj
+		SccProjectTopLevelParentUniqueName1 = System.DirectoryServices.Linq.sln
+		SccProjectName1 = System.DirectoryServices.Linq
+		SccLocalPath1 = System.DirectoryServices.Linq
+		SccProjectUniqueName2 = System.DirectoryServices.Linq.Tests\\System.DirectoryServices.Linq.v3.5.Tests.csproj
+		SccProjectTopLevelParentUniqueName2 = System.DirectoryServices.Linq.sln
+		SccProjectName2 = System.DirectoryServices.Linq.Tests
+		SccLocalPath2 = System.DirectoryServices.Linq.Tests
+		SccProjectUniqueName3 = System.DirectoryServices.Linq\\System.DirectoryServices.Linq.v4.0.csproj
+		SccProjectTopLevelParentUniqueName3 = System.DirectoryServices.Linq.sln
+		SccProjectName3 = System.DirectoryServices.Linq
+		SccLocalPath3 = System.DirectoryServices.Linq
+		SccProjectUniqueName4 = System.DirectoryServices.Linq.Tests\\System.DirectoryServices.Linq.v4.0.Tests.csproj
+		SccProjectTopLevelParentUniqueName4 = System.DirectoryServices.Linq.sln
+		SccProjectName4 = System.DirectoryServices.Linq.Tests
+		SccLocalPath4 = System.DirectoryServices.Linq.Tests
+		SccProjectUniqueName5 = System.DirectoryServices.Linq\\System.DirectoryServices.Linq.v4.5.csproj
+		SccProjectTopLevelParentUniqueName5 = System.DirectoryServices.Linq.sln
+		SccProjectName5 = System.DirectoryServices.Linq
+		SccLocalPath5 = System.DirectoryServices.Linq
+		SccProjectUniqueName6 = System.DirectoryServices.Linq.Tests\\System.DirectoryServices.Linq.v4.5.Tests.csproj
+		SccProjectTopLevelParentUniqueName6 = System.DirectoryServices.Linq.sln
+		SccProjectName6 = System.DirectoryServices.Linq.Tests
+		SccLocalPath6 = System.DirectoryServices.Linq.Tests
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = System.DirectoryServices.Linq.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BCFBDD-C07D-4310-A9EA-86B920E9C35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BCFBDD-C07D-4310-A9EA-86B920E9C35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BCFBDD-C07D-4310-A9EA-86B920E9C35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BCFBDD-C07D-4310-A9EA-86B920E9C35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07DA492-0382-4014-BF6C-F4596BD4C1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07DA492-0382-4014-BF6C-F4596BD4C1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07DA492-0382-4014-BF6C-F4596BD4C1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07DA492-0382-4014-BF6C-F4596BD4C1C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E632EE-4619-4A52-BCFD-94773BB97A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E632EE-4619-4A52-BCFD-94773BB97A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E632EE-4619-4A52-BCFD-94773BB97A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E632EE-4619-4A52-BCFD-94773BB97A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4C862B-1496-492B-8361-33064476BE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4C862B-1496-492B-8361-33064476BE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4C862B-1496-492B-8361-33064476BE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4C862B-1496-492B-8361-33064476BE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD} = {A103B85C-9F3D-4D4E-B9E1-6ED66FEF9F56}
+		{90BCFBDD-C07D-4310-A9EA-86B920E9C35F} = {A103B85C-9F3D-4D4E-B9E1-6ED66FEF9F56}
+		{C07DA492-0382-4014-BF6C-F4596BD4C1C1} = {C52693F0-BE4A-4269-A6F9-854815F4FBF1}
+		{20E632EE-4619-4A52-BCFD-94773BB97A96} = {C52693F0-BE4A-4269-A6F9-854815F4FBF1}
+		{2E4C862B-1496-492B-8361-33064476BE30} = {F8A0BB7D-18C8-4DB8-8EDD-0F4E21DB2475}
+		{A2B17857-CCC6-42FB-A5FF-32F397DF6E8C} = {F8A0BB7D-18C8-4DB8-8EDD-0F4E21DB2475}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E15EB3B-F305-49A6-B8D2-438F01CF5AAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>System.DirectoryServices.Linq</RootNamespace>
+    <AssemblyName>System.DirectoryServices.Linq</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\v4.0\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\v4.0\Debug\System.DirectoryServices.Linq.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\v4.0\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\v4.0\Release\System.DirectoryServices.Linq.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LogikBug.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\DirectoryAttribute.cs" />
+    <Compile Include="Attributes\DirectoryPropertyAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Attributes\DirectoryTypeAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Attributes\EntryCollectionPropertyAttribute.cs" />
+    <Compile Include="ChangeTracking\ChangeTracker.cs" />
+    <Compile Include="ChangeTracking\IChangeTracker.cs" />
+    <Compile Include="DirectoryContext.cs" />
+    <Compile Include="DirectoryEnumerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntryObjects\AdUserFlags.cs" />
+    <Compile Include="EntryObjects\ChangeState.cs" />
+    <Compile Include="EntryObjects\EntryCollection.cs" />
+    <Compile Include="EntryObjects\EntryObject.cs" />
+    <Compile Include="EntryObjects\EntryQuery.cs" />
+    <Compile Include="EntryObjects\EntryQueryState.cs" />
+    <Compile Include="EntryObjects\EntryReference.cs" />
+    <Compile Include="EntryObjects\EntrySet.cs" />
+    <Compile Include="EntryObjects\EntrySetCollection.cs" />
+    <Compile Include="EntryObjects\EntrySetCollectionQueryProvider.cs" />
+    <Compile Include="EntryObjects\GroupEntryObject.cs" />
+    <Compile Include="EntryObjects\IEntryQuery.cs" />
+    <Compile Include="EntryObjects\IEntrySet.cs" />
+    <Compile Include="EntryObjects\IEntryWithRelationships.cs" />
+    <Compile Include="EntryObjects\NamedEntryObject.cs" />
+    <Compile Include="EntrySetInitalizer.cs" />
+    <Compile Include="Expressions\DirectoryExpressionBase.cs" />
+    <Compile Include="Expressions\DirectoryExpressionType.cs" />
+    <Compile Include="Expressions\DirectoryExpressionVisitor.cs" />
+    <Compile Include="DirectoryQueryProvider.cs" />
+    <Compile Include="DisposableObject.cs" />
+    <Compile Include="Expressions\DirectoryExpression.cs" />
+    <Compile Include="Expressions\OrderByDirection.cs" />
+    <Compile Include="Expressions\OrderByExpression.cs" />
+    <Compile Include="Expressions\OrderByExpressionVisitor.cs" />
+    <Compile Include="Expressions\SelectExpression.cs" />
+    <Compile Include="Expressions\SelectExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Expressions\SingleResultExpression.cs" />
+    <Compile Include="Expressions\SingleResultType.cs" />
+    <Compile Include="Expressions\SkipTakeExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Expressions\SkipTakeExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Expressions\WhereExpression.cs" />
+    <Compile Include="Expressions\WhereExpressionVisitor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\DirectoryExpressionTypeExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions\TypeExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Filters\AttributeBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Filters\AttributeFilter.cs" />
+    <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\FilterBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterCollection.cs" />
+    <Compile Include="Filters\FilterConstants.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Filters\FilterOperator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IQueryExecutor.cs" />
+    <Compile Include="IQueryTranslator.cs" />
+    <Compile Include="IRelationshipManager.cs" />
+    <Compile Include="IResultMapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MatchingRuleType.cs" />
+    <Compile Include="MoreThanOneResultException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="QueryExecutor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QueryProvider.cs" />
+    <Compile Include="QueryTranslator.cs" />
+    <Compile Include="RelationshipManager.cs" />
+    <Compile Include="ResultMapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ResultNotFoundException.cs" />
+    <Compile Include="SearchResults.cs" />
+    <Compile Include="TranslatorContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntryObjects\UserEntryObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LogikBug.pfx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
