@@ -1,284 +1,227 @@
 # [LinqToLdap](https://adlinq.codeplex.com/)
 C# LINQ provider built on top of System.DirectoryServices.Protocols for querying and updating LDAP servers.
 
-First thing to note is, LINQ 2 AD is built using the "oh so familiar" pattern LINQ to SQL and EntityFramework use, everything is queried using IQueryable<T> properties of a "Context". So, here is a sample context.
+## Project Description
+LINQ provider built on top of System.DirectoryServices.Protocols for querying and updating LDAP servers.
 
+## Overview
+There are tons of examples on how to access Active Directory via System.DirectoryServices and System.DirectoryServices.AccountManagement. However, with the introduction of LINQ all of those examples felt completely outdated. The goal of LINQ to LDAP is to simplify the process of getting information in an out of a directory server using LINQ in .Net 3.5 and up.
+
+## Getting Started
+Below you'll find the fastest way to get up and running with LINQ to LDAP. There's also an examples project over at GitHub with a MVC and WPF example that connects to a live OpenLDAP server. You can also reference the Documentation.
+
+### Get LINQ to LDAP
+Add LINQ to LDAP to your project either by getting it from NuGet or downloading the latest release. 
+
+### Create a class
 ```
-public class DirectoryContextMock : DirectoryContext
+public class User
 {
-	public DirectoryContextMock() : base(string.Empty)
-	{
+    public const string NamingContext = "CN=Users,CN=Employees,DC=Northwind,DC=local";
 
-	}
+    public string DistinguishedName { get; set; }
+    public string CommonName { get; set; }
+    public Guid Guid { get; set; }
+    public SecurityIdentifier Sid { get; set; }
+    public string Title { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime WhenCreated { get; set; }
+    public DateTime LastChanged { get; set; }
 
-	private IEntrySet<User> _users;
-	private IEntrySet<Group> _groups;
-
-	public IEntrySet<User> Users
-	{
-		get
-		{
-			if (_users == null)
-			{
-				_users = CreateEntrySet<User>();
-			}
-
-			return _users;
-		}
-	}
-
-	public IEntrySet<Group> Groups
-	{
-		get
-		{
-			if (_groups == null)
-			{
-				_groups = CreateEntrySet<Group>();
-			}
-
-			return _groups;
-		}
-	}
-}
-
-[DirectoryType("User", "OU=InternalUsers")]
-public class User : UserEntryObject
-{
-	private Guid _id;
-	private string _email;
-	private string _userName;
-	private string _firstName;
-	private string _lastName;
-	private DateTime? _whenChanged;
-
-	[DirectoryProperty("objectguid", true)]
-	public Guid Id
-	{
-		get
-		{
-			return _id;
-		}
-		set
-		{
-			if (_id != value)
-			{
-				_id = value;
-				NotifyPropertyChanged("Id");
-			}
-		}
-	}
-
-	[DirectoryProperty("whenchanged", true)]
-	public DateTime? LastModifiedDate
-	{
-		get
-		{
-			return _whenChanged;
-		}
-		set
-		{
-			_whenChanged = value;
-		}
-	}
-
-	[DirectoryProperty("samaccountname")]
-	public string UserName
-	{
-		get
-		{
-			return _userName;
-		}
-		set
-		{
-			if (_userName != value)
-			{
-				_userName = value;
-				NotifyPropertyChanged("UserName");
-			}
-		}
-	}
-
-	[DirectoryProperty("givenName")]
-	public string FirstName
-	{
-		get
-		{
-			return _firstName;
-		}
-		set
-		{
-			if (_firstName != value)
-			{
-				_firstName = value;
-				NotifyPropertyChanged("FirstName");
-			}
-		}
-	}
-
-	[DirectoryProperty("sn")]
-	public string LastName
-	{
-		get
-		{
-			return _lastName;
-		}
-		set
-		{
-			if (_lastName != value)
-			{
-				_lastName = value;
-				NotifyPropertyChanged("LastName");
-			}
-		}
-	}
-
-	[DirectoryProperty("mail")]
-	public string Email
-	{
-		get
-		{
-			return _email;
-		}
-		set
-		{
-			if (_email != value)
-			{
-				_email = value;
-				NotifyPropertyChanged("Email");
-			}
-		}
-	}
-
-	[EntryCollectionProperty("member")]
-	public EntryCollection<Group> Groups
-	{
-		get
-		{
-			return ((IEntryWithRelationships)this).RelationshipManager.GetEntryCollection<Group>("Groups");
-		}
-	}
-}
-
-[DirectoryType("group", "OU=Groups")]
-public class Group : EntryObject
-{
-	[DirectoryProperty("samaccountname")]
-	public string Name { get; set; }
-
-	[EntryCollectionProperty("memberOf", MatchingRule = MatchingRuleType.InChain)]
-	public EntryCollection<User> Users
-	{
-		get
-		{
-			return ((IEntryWithRelationships)this).RelationshipManager.GetEntryCollection<User>("Users");
-		}
-	}
+    public void SetDistinguishedName()
+    {
+        DistinguishedName = string.Format("CN={0},{1}", CommonName, NamingContext);
+    }
 }
 ```
-
-The DirectoryTypeAttribute represents an ObjectClass in AD. The constructor of the attribute has 2 overloads. First, is the name of the ObjectClass and second, the optional Parent schema to add the class to.
-
-The DirectoryPropertyAttribute represents an attribute to load from the parent ObjectClass.
-
-Also, note that the User object inherits from UserEntryObject instead of EntryObject. This is optional, but it the UserEntryObject provides a .SetPassword(string password) method.
-Now that we have our base context, lets do a basic query against AD.
-
+Map the class
+By Attributes
 ```
-[TestMethod]
-public void FirstUserByUserNameTest()
+[DirectorySchema(NamingContext, ObjectCategory = "Person", ObjectClass = "User")]
+public class User
 {
-	using (var context = new MockDirectoryContext())
-	{
-		var user = context.Users.FirstOrDefault(u => u.UserName == "sbaker");
-		Assert.IsNotNull(user);
-		Assert.AreEqual(user.FirstName, "Stephen");
-	}
+    public const string NamingContext = "CN=Users,CN=Employees,DC=Northwind,DC=local";
+
+    [DistinguishedName]
+    public string DistinguishedName { get; set; }
+
+    [DirectoryAttribute("cn", ReadOnly = true)]
+    public string CommonName { get; set; }
+
+    [DirectoryAttribute("objectguid", StoreGenerated = true)]
+    public Guid Guid { get; set; }
+
+    [DirectoryAttribute("objectsid", StoreGenerated = true)]
+    public SecurityIdentifier Sid { get; set; }
+
+    [DirectoryAttribute]
+    public string Title { get; set; }
+
+    [DirectoryAttribute("givenname")]
+    public string FirstName { get; set; }
+
+    [DirectoryAttribute("sn")]
+    public string LastName { get; set; }
+
+    [DirectoryAttribute(StoreGenerated = true)]
+    public DateTime WhenCreated { get; set; }
+
+    [DirectoryAttribute(StoreGenerated = true)]
+    public DateTime WhenChanged { get; set; }
+
+    public void SetDistinguishedName()
+    {
+        DistinguishedName = string.Format("CN={0},{1}", CommonName, NamingContext);
+    }
 }
 ```
-
-Now, that we have done a basic query, lets try some more complex queries.
+By Mapping
 ```
-[TestMethod]
-public void WhereUserFirstNameSkip20Take10Test()
+public class UserMapping : ClassMap<User>
 {
-	using (var context = new MockDirectoryContext())
-	{
-		var users = context.Users.Where(u => u.FirstName.StartsWith("S"))
-			.Skip(20)
-			.Take(10)
-			.OrderBy(u => u.LastName)
-			.ToArray();
+    public override IClassMap PerformMapping(string namingContext = null, 
+        string objectCategory = null, bool includeObjectCategory = true,
+        IEnumerable<string> objectClasses = null, bool includeObjectClasses = true)
+    {
+        NamingContext(User.NamingContext);
 
-		Assert.IsTrue(users.Length == 10);
-	}
-}
+        ObjectCategory("Person");
+        ObjectClass("User");
 
-[TestMethod]
-public void LastUserFirstNameAndEmailIsNotNullTest()
-{
-	using (var context = new MockDirectoryContext())
-	{
-		var user = context.Users.LastOrDefault(u => u.FirstName == "Stephen" && u.Email != null);
+        DistinguishedName(x => x.DistinguishedName);
+        Map(x => x.CommonName).Named("cn").ReadOnly();
+        Map(x => x.Guid).Named("objectguid").StoreGenerated();
+        Map(x => x.Sid).Named("objectsid").StoreGenerated();
+        Map(x => x.Title);
+        Map(x => x.FirstName).Named("givenname");
+        Map(x => x.LastName).Named("sn");
+        Map(x => x.WhenCreated).StoreGenerated();
+        Map(x => x.WhenChanged).StoreGenerated();
 
-		Assert.IsNotNull(user);
-	}
-}
-
-[TestMethod]
-public void WhereUserFirstNameIsStephenLastNameIsBakerOrSomeOtherTestSelectTest()
-{
-	using (var context = new MockDirectoryContext())
-	{
-		var users = context.Users.Where(u => u.FirstName == "Stephen" && (u.LastName == "SomeOtherLastName" || u.LastName == "Baker"))
-			.OrderBy(u => u.LastName)
-			.Select(u => new { Name = string.Concat(u.FirstName, " ", u.LastName) })
-			.ToList();
-
-		Assert.IsTrue(users.Count == 4);
-		Assert.IsTrue(users.All(u => u.Name.StartsWith("Stephen")));
-	}
+        return this;
+    }
 }
 ```
-
-You can also use LINQ syntax vs. Lambda.
+Configure LINQ to LDAP
+Put this in your Global.asax or App.xaml.cs
 ```
-[TestMethod]
-public void FirstUserByIdTest()
+var config = new LdapConfiguration()
+    .MaxPageSizeIs(1000);
+
+//add mapping
+config.AddMapping(new UserMapping());
+// OR
+config.AddMapping(new AttributeClassMap<User>());
+
+//configure connecting to the directory
+config.ConfigureFactory("companydirectory.com")
+    .AuthenticateBy(AuthType.Negotiate)
+    .AuthenticateAs(CredentialCache.DefaultNetworkCredentials)
+    .ProtocolVersion(3)
+    .UsePort(389);
+
+//store the configuration
+//alternately you can register it with your IoC container of choice.
+config.UseStaticStorage();
+Create a DirectoryContext
+//this only works when using static storage
+IDirectoryContext context = new DirectoryContext();
+
+//create it from a configuration
+IDirectoryContext context = new DirectoryContext(config);
+CRUD for User
+IDirectoryContext context = new DirectoryContext();
+
+var user = new User()
 {
-	using (var context = new MockDirectoryContext())
-	{
-		var user = (from u in context.Users
-			    where u.UserName == "sbaker"
-			    select u).Single();
+    CommonName = "ABC User",
+    FirstName = "ABC",
+    LastName = "User",
+    Title = "Test User"
+};
+user.SetDistinguishedName();
 
-		Assert.IsNotNull(user);
-		Assert.AreEqual(user.FirstName, "Stephen");
-	}
-}
+context.Add(user);
+
+user = context.Query<User>()
+    .Single(u => u.FirstName == user.FirstName && u.LastName == user.LastName);
+
+user.Should().Not.Be.Null();
+user.Title = "Freshly updated";
+context.Update(user);
+context.Delete(user.DistinguishedName);
+CRUD without mapping
+IDirectoryContext context = new DirectoryContext();
+
+IDirectoryAttributes user = new DirectoryAttributes("CN=ABC User,CN=Users,CN=Employees,DC=Northwind,DC=local");
+
+user.Set("givenname", "ABC")
+    .Set("sn", "User")
+    .Set("title", "Test User");
+
+context.Add(user);
+
+user = context.Query("CN=Users,CN=Employees,DC=Northwind,DC=local")
+    .Select("title", "cn", "givenname", "sn", "objectGuid", "objectSid")
+    .Single(_ => Filter.Equal(_, "givenname", "ABC", shouldCleanValue: true) &&
+                    Filter.Equal(_, "sn", "User", shouldCleanValue: true));
+
+user.Should().Not.Be.Null();
+user.GetGuid("objectGuid").Should().Not.Be.Null();
+user.Set("title", "Freshly updated");
+context.Update(user);
+context.Delete(user.DistinguishedName);
 ```
-You can also Add and Delete objects from AD.
+
+### Lifetime Management
+The LdapConfiguration class is designed to be a singleton. You should configure it once and then store it with your IoC container of choice or call the UseStaticStorage method. I don't recommend using DirectoryContext as a singleton, but it is possible depending on your usage scenario. There may be limitations to how long a connection to your LDAP server can be maintained. 
+
+### Thread-safety
+LdapConfiguration is only thread safe after it has been configured. DirectoryContext can be used across threads, but the underlying LdapConnection is not guaranteed to be thread safe so proceed with caution. 
+
+### Disposal
+Calling dispose is not explicitly required for DirectoryContext. Both it and the LdapConnection from S.DS.P have a finalizer that will get called when the garbage collector runs. However, depending on your connection factory and usage scenario, you may run out of connections to your LDAP server. 
+
+### Unit-of-work
+LDAP currently does NOT support transactions so there is no way to wrap modifications in a unit-of-work. 
+
+### Unit Testing
+DirectoryContext is mocking friendly via the IDirectoryContext interface. Its methods can be mocked, however, when using LINQ to LDAP specific expressions in queries (custom filters) it will be necessary to use the MockQuery under TestSupport.
 
 ```
-[TestMethod]
-public void AddAndDeleteNewUserTest()
-{
-	using (var context = new MockDirectoryContext())
-	{
-		var newUser = new User
-		{
-		    UserName = "sbaker",
-		    FirstName = "Steve",
-		    LastName = "Baker",
-		    Email = "sbaker@logikbug.com"
-		};
+var array = new[] { "one" };
+var context = new Mock<IDirectoryContext>();
+var query = new MockQuery<IDirectoryAttributes>(new List<object> { array });
+context.Setup(x => x.Query("test", SearchScope.Subtree, null, null, null))
+    .Returns(query);
+var expression = PredicateBuilder.Create<IDirectoryAttributes>()
+    .And(x => Filter.Equal(x, "x", "y", false))
+    .Or(x => Filter.Equal(x, "a", "b", true));
 
-		context.AddObject(newUser);
-		newUser.SetPassword("1234$#@!");
-		context.SubmitChanges();
+var result = context.Object.Query("test")
+    .Where(expression)
+    .Select(x => x.GetString("whatever"))
+    .ToArray();
 
-		var user = context.Users.Single(u => u.UserName == "sbaker");
-		context.DeleteObject(user);
-		context.SubmitChanges();
-	}
-}
+query.MockProvider.ExecutedExpressions.Should().Have.Count.EqualTo(1);
+query.MockProvider.ExecutedExpressions[0].ToString()
+    .Should().Contain("Equal(x, \"x\", \"y\", False)")
+    .And.Contain("OrElse")
+    .And.Contain("Equal(x, \"a\", \"b\", True)")
+    .And.Contain("x => x.GetString(\"whatever\")");
+
+result.Should().Have.SameSequenceAs(array);
 ```
+
+## Tested Servers
+- Microsoft Lightweight Directory Services 
+- Microsoft Active Directory (Read Only Testing) 
+- OpenLDAP (Read Only Testing) 
+- IBM Tivoli Directory (Read Only Testing) 
+- Siemens DirX (Read Only Testing) 
+- Apache Directory (Read Only Testing) 
+- OpenDJ (User Tested)
+
+## Disclaimer
+This project is provided as is. I have tested the project primarily using Lightweight Directory Services, but each server will have different features and capabilities. I recommend thorough testing before using this project in a production environment.
